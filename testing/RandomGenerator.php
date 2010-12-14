@@ -18,30 +18,30 @@ class RandomGenerator
         // we could use the randomized length here instead of later in the process
         // but the randomized results are a little more random when we get this big pie
         // and then grab little slices of it later
-		switch ($type)
-		{
-			case 'alpha':
-				$str = RandomGenerator::getAlphaString( $length );
-				break;
-			case 'alphawhitespace':
-				$str = RandomGenerator::getAlphaWhitespaceString( $length );
-				break;
-			case 'alphanum':
-				$str = RandomGenerator::getAlphaNumString( $length );
-				break;
-			case 'alphanumwhitespace':
-				$str = RandomGenerator::getAlphaNumWhitespaceString( $length );
-				break;
-			case 'alphanumchar':
-				$str = RandomGenerator::getAlphaNumCharString( $length );
-				break;
-			default:
-				$str = RandomGenerator::getAlphaNumCharString( $length );
-				break;
-		}
+        switch ($type)
+        {
+            case 'alpha':
+                $str = RandomGenerator::getAlphaString( $length );
+                break;
+            case 'alphawhitespace':
+                $str = RandomGenerator::getAlphaWhitespaceString( $length );
+                break;
+            case 'alphanum':
+                $str = RandomGenerator::getAlphaNumString( $length );
+                break;
+            case 'alphanumwhitespace':
+                $str = RandomGenerator::getAlphaNumWhitespaceString( $length );
+                break;
+            case 'alphanumchar':
+                $str = RandomGenerator::getAlphaNumCharString( $length );
+                break;
+            default:
+                $str = RandomGenerator::getAlphaNumCharString( $length );
+                break;
+        }
 
-		// put the string chars into an array 
-		$arr = str_split( $str );
+        // put the string chars into an array
+        $arr = str_split( $str );
 		
         // if it's a random length
         // then we only pull out that new random length
@@ -51,8 +51,8 @@ class RandomGenerator
         	$length = rand( $min, $length);
         }
 
-		// this array is the list of indexes in our character array
-		// that we should pull our chars from
+        // this array is the list of indexes in our character array
+        // that we should pull our chars from
         $arr_index = array_rand( $arr, $length );
    
         // pull indexes of original array and make a new array of chars
@@ -62,7 +62,7 @@ class RandomGenerator
             $arr_random[] = $arr[ $arr_index[$i] ];
         }
 
-		// make that a string please
+        // make that a string please
         return implode('', $arr_random);
     }
 
