@@ -50,6 +50,9 @@ class RandomGenerator
         {
         	$length = rand( $min, $length);
         }
+
+		// this array is the list of indexes in our character array
+		// that we should pull our chars from
         $arr_index = array_rand( $arr, $length );
    
         // pull indexes of original array and make a new array of chars
@@ -58,6 +61,8 @@ class RandomGenerator
         {
             $arr_random[] = $arr[ $arr_index[$i] ];
         }
+
+		// make that a string please
         return implode('', $arr_random);
     }
 
@@ -139,7 +144,7 @@ class RandomGenerator
         // we're just making sure with this loop that we have enough random chars to pull from
         // its faster to make a really big string and pull out values from it
         // then to keep looping over the same string
-        for ( $i = 0; $i < $length; $i = $i + 46 )
+        for ( $i = 0; $i < $length; $i = $i + 60 )
         {
             $str .= "     ''''''!@#$%^&*()!\\\   [][][{}{}--=++==_;;//?>>>>>   ><@#$%^&*()abcde  fghijklmnopqrstuvwxyz 'ABCDEFGHIJKLMNOPQRSTUVWXYZ '0123456789 0012345678900123456789 '0''''''";
         }
