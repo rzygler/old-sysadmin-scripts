@@ -18,27 +18,27 @@ class RandomGenerator
         // we could use the randomized length here instead of later in the process
         // but the randomized results are a little more random when we get this big pie
         // and then grab little slices of it later
-        switch ($type)
-        {
-        	case 'alpha':
-                $str = RandomGenerator::getAlphaString( $length );
-                break;   
-        	case 'alphawhitespace':
+		switch ($type)
+		{
+			case 'alpha':
+				$str = RandomGenerator::getAlphaString( $length );
+				break;
+			case 'alphawhitespace':
 				$str = RandomGenerator::getAlphaWhitespaceString( $length );
-        		break;
-            case 'alphanum':
-                $str = RandomGenerator::getAlphaNumString( $length );
-                break;
-            case 'alphanumwhitespace':
-            	$str = RandomGenerator::getAlphaNumWhitespaceString( $length );
-            	break; 
-            case 'alphanumchar':
-            	$str = RandomGenerator::getAlphaNumCharString( $length );
-            	break;
-            default:
-               $str = RandomGenerator::getAlphaNumCharString( $length );
-                break;
-        }
+				break;
+			case 'alphanum':
+				$str = RandomGenerator::getAlphaNumString( $length );
+				break;
+			case 'alphanumwhitespace':
+				$str = RandomGenerator::getAlphaNumWhitespaceString( $length );
+				break;
+			case 'alphanumchar':
+				$str = RandomGenerator::getAlphaNumCharString( $length );
+				break;
+			default:
+				$str = RandomGenerator::getAlphaNumCharString( $length );
+				break;
+		}
 
 		// put the string chars into an array 
 		$arr = str_split( $str );
