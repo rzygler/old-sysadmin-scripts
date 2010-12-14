@@ -1,0 +1,158 @@
+<html>
+<head>
+   <title></title>
+   <link rel="stylesheet" type="text/css"  href="/extjs/resources/css/ext-all.css" />
+   <script src="/extjs/adapter/ext/ext-base.js"></script>
+   <script src="/extjs/ext-all-debug.js" ></script>
+   <script src="/extjs/ux/RowEditor.js" ></script>
+   <script>
+
+      Ext.onReady( function() {
+    	  
+    	  var field = Ext.data.Record.create([
+    	      {name: 'id'},
+    	      {name: 'name'},
+    	      {name: 'email'}
+    	  ]);
+      
+    	  var writer = new Ext.data.JsonWriter({
+              encode: false,
+              // with writeAll set to true, the RowEditor plugin
+              // will send all fields back to the restful urls
+              writeAllFields: true
+          });
+    	  var proxy = new Ext.data.HttpProxy({
+    		    	api: {
+    		    	    read :    '/samples/ext/restful/read/',
+    		    	    create :  '/samples/ext/restful/create/',  // Server MUST return idProperty of new record
+    		    	    update :  '/samples/ext/restful/update/index.php?id=',
+    		    	    destroy : '/samples/ext/restful/destroy/index.php?id='
+    		    	}
+    		});
+    		
+    	  var reader = new Ext.data.JsonReader({idProperty: 'id'}, field );
+    	  var store = new Ext.data.JsonStore({
+    		  	autoLoad: true,
+    		  	autoSave: false,
+    		  	fields: field,
+    		  	proxy: proxy,
+    		  	reader: reader,
+    		  	restful: true,
+    		  	root: 'rows',
+    		  	storeId: 'myStore',
+    		  	writer: writer,
+    		  	
+    		    listeners:{    
+    		    	add : function ( store, records, index )
+    		    	{
+    		    		console.log( 'in add' );
+    		    	},
+                    load:function(store, records, options)
+                    {
+                    	console.log( 'in load' );
+                    	// console.log( arguments );
+    					// console.log( this );	
+                    },
+    	  			exception: function(proxy, type, action, exception) 
+    	  			{
+    	  				console.log( 'in exception' );
+    	  			},
+    	  			save : function( store, batch, data )
+    	  			{
+    	  				console.log( 'in save' );
+    	  			},
+    	  			update : function( store, record, operation )
+    	  			{
+    	  				console.log ( 'in update' );
+    	  			}
+    		    } // end listeners
+    		});
+    	  
+
+    	  /*
+    	  var grid = new Ext.grid.EditorGridPanel({
+    		     renderTo: document.body,
+    		     frame: true,
+    		     title: 'Users' ,
+    		      height: 200 ,
+    		      width: 500,
+    		      clicksToEdit: 1,
+    		      store: store,
+    		      selModel: new Ext.grid.RowSelectionModel(),
+    		      columns: [
+    		         { header: "ID", dataIndex: 'id', width: 20 },
+    		         { header: "NAME", dataIndex: 'name', width: 200, editor: name_edit } ,
+    		         { header: "EMAIL", dataIndex: 'email', width: 260 }
+    		       ],
+    		       listeners: 
+    		       {
+    		    	    afteredit: function(e) 
+    		    	    {
+    		    	    	console.log( 'in after edit');
+    		    	        // e.record.commit();
+    		    	       	e.grid.getStore().save();
+    		    	    }
+    		       },
+    		       tbar: [
+    		    	 {
+    		    		 text: 'Remove',
+    		    		 handler: function( ) 
+    		    		 {
+    		    		    var sm = grid.getSelectionModel() ;
+    		    			var sel = sm.getSelected() ;
+    		    			if ( sm.hasSelection() ) 
+    		    			{
+    		    				Ext.Msg.show({
+    		    			    	title: 'Remove User',
+    		    			        buttons: Ext.MessageBox.YESNOCANCEL,
+    		    			        msg: 'Remove ' +sel.data.name + ' ?' ,
+    		    			        fn: function(btn) 
+    		    			        {
+    		    			        	if (btn == 'yes' ) 
+    		    			          	{
+    		    			            	grid.getStore().remove(sel);
+    		    			            	grid.getStore().save();
+    		    			            	// grid.getStore().reload();
+    		    			          	}
+    		    			        }
+    		    			    });
+    		    			};
+    		    	 	}
+    		    	 }
+    		    	 ]
+    		    } ) ;
+
+    	  */
+    	  var editor = new Ext.ux.grid.RowEditor({
+    	        saveText: 'Update',
+    		       listeners:
+    		    	{
+    		    	  afteredit: function(roweditor, changes, record, rowIndex) 
+    		    	  {
+    		    		  
+    		    		  console.log( 'in after edit' );
+    		    		  record.store.save();
+    		    	  }
+    		    	}
+    	    });
+    	  var grid = new Ext.grid.GridPanel({
+ 		     renderTo: document.body,
+ 		     frame: true,
+ 		     title: 'Users' ,
+ 		      height: 200 ,
+ 		      width: 500,
+ 		     plugins: [editor],
+ 		      store: store,
+ 		      columns: [
+ 		         { header: "ID", dataIndex: 'id', width: 20, editor   : new Ext.form.TextField() },
+ 		         { header: "NAME", dataIndex: 'name', width: 200, editor   : new Ext.form.TextField() } ,
+ 		         { header: "EMAIL", dataIndex: 'email', width: 260, editor   : new Ext.form.TextField() }
+ 		       ]
+    	  });
+      });
+    	</script>
+</head>
+<body>
+
+</body>
+</html>
