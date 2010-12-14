@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Generates Random Strings of specified or random lengths
+ */
 class RandomGenerator
 {
 	/**
