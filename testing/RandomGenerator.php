@@ -2,6 +2,17 @@
 
 /**
  * Generates Random Strings of specified or random lengths
+ * For the various types of strings (alpha, alphanum, etc) we
+ * first create a string of just those valid values.  Then
+ * we turn that into an array, each spot in the array is one char long.
+ * Then we pull out random spots in the string char array to make a new
+ * array.  When then convert that array back to a string and return it.
+ *
+ * Because the class is setup this way, its easy to add another string type
+ * if necessary.
+ *
+ * Called via:  getString( 20, 'alphanum', true );
+ * 
  */
 class RandomGenerator
 {
