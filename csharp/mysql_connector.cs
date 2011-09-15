@@ -1,6 +1,6 @@
 using MySql.Data.MySqlClient; 
 
-# uses mysql connector from mysql.com
+// uses mysql connector from mysql.com
 
 class mysql 
 { 
