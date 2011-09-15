@@ -19,9 +19,16 @@ IGNORE_FILE="/path/to/tables_to_ignore.txt"
 DATE=`$PROG_DATE +%Y%m%d%H%M%S`
 
 #### fill these in
+HOST=""
+
+### can use local .my.cnf file with u/p that looks like this:
+# [mysqldump]
+# user = test
+# password = test
+
 USERNAME=""
 PASSWORD=""
-HOST=""
+
 
 for db in `$PROG_CAT $DATA_FILE`;
 do
